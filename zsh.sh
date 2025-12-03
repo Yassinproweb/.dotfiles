@@ -82,7 +82,7 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   fast-syntax-highlighting
- )
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,6 +103,20 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init zsh)"
 
@@ -113,10 +127,14 @@ eval "$(zoxide init zsh)"
 # - $ZSH_CUSTOM/aliases.zsh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 # ---- Eza (better ls) -----
 alias ls="eza --color=always --no-filesize --icons=always --no-time --no-user --no-permissions"
-alias pgstart="sudo service postgresql start"
-alias pgstop="sudo service postgresql stop"
+alias pgstart="pg_ctl -D $PREFIX/var/lib/postgresql start"
+alias pgstop="pg_ctl -D $PREFIX/var/lib/postgresql stop"
 alias cd="z"
 alias rn="rm -rf"
 alias rm="rm -rf"
@@ -157,11 +175,8 @@ function golang() {
   md -p "$1" && cd "$1" && go mod init "github.com/Yassinproweb/$1"
 }
 
-# neovim
-export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
-
 # ----- Bat (better cat) -----
-export BAT_THEME=tokyonight_night
+export BAT_THEME="Catppuccin Mocha"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -169,6 +184,8 @@ export BAT_THEME=tokyonight_night
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export PATH="$HOME/zig-linux-x86_64-0.13.0:$PATH"
+
 
 # pnpm
 export PNPM_HOME="/home/yassinpro/.local/share/pnpm"
@@ -177,16 +194,3 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-
-# golang
-export PATH=$PATH:/usr/local/go/bin
-
-# zig
-alias rz="zig run main.zig"
-export PATH="$HOME/zig-linux-x86_64-0.15.2:$PATH"
-alias zig="~/zig-x86_64-linux-0.15.2/zig"
-
-# function for a initiating a new zig project
-function ziggy() {
-  md -p "$1" && cd "$1" && zig init
-}
